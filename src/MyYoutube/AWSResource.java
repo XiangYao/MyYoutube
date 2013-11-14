@@ -1,6 +1,7 @@
 package MyYoutube;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -41,7 +42,7 @@ public class AWSResource {
 	
     static AmazonS3Client s3;
     
-    public static List<S3ObjectSummary> getVideoList() throws Exception {
+    public static List<String> getVideoList() throws Exception {
 
     	AmazonS3Client s3Client;
 		AWSCredentials credentials = new PropertiesCredentials(
@@ -59,8 +60,14 @@ public class AWSResource {
 			next =s3Client.listNextBatchOfObjects(objList);
 		}
 		keyList.addAll(next.getObjectSummaries());
-        
-		return keyList;
+		ArrayList<String> result = new ArrayList<String>();
+		for (int i=0; i<keyList.size(); i++) {
+			String fileName = keyList.get(i).getKey();
+			String subfix = fileName.substring(fileName.length() - 4, fileName.length());				
+			if (subfix.equals(".mp4") || subfix.equals(".flv"))
+				result.add(fileName);
+		}
+		return result;
 	}    
     
     public static void main(String[] args) throws Exception {

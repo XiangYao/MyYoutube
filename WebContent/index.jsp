@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-
+<%@page import="MyYoutube.AWSResource"%>
 
 <html lang="en">
   <head>
@@ -33,11 +33,7 @@
     
     <%
    	List<String> videoList = new ArrayList<String>();
-   	if (request.getAttribute("video_list") == null) {
- 		response.sendRedirect("/MyYoutube/upload");
- 	} else {
-   		videoList = (ArrayList<String>)request.getAttribute("video_list");
-   	}
+   	videoList = MyYoutube.AWSResource.getVideoList();
     %>
     
   </head>
