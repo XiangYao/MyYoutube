@@ -108,7 +108,7 @@ public class AWSResource {
 	     s3.putObject(new PutObjectRequest(bucketName, key2, new_file2));
 	     s3.putObject(new PutObjectRequest(bucketName, key3, new_file3));
 	     s3.putObject(new PutObjectRequest(bucketName, key4, new_file4));
-	     	     
+	     
 	     System.out.println("# Successfully put files into S3 bucket...");
 	     System.out.println();
 	     

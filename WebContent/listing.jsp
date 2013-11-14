@@ -29,10 +29,14 @@
 
     <!-- Custom styles for this template -->
     <link href="css/carousel.css" rel="stylesheet">
-    
+        
     <%
    	List<String> videoList = new ArrayList<String>();
-   	videoList = MyYoutube.AWSResource.getVideoList();
+   	if (request.getAttribute("video_list") == null) {
+ 		response.sendRedirect("/MyYoutube/listing");
+ 	} else {
+   		videoList = (ArrayList<String>)request.getAttribute("video_list");
+   	}
     %>
     
   </head>
@@ -126,96 +130,52 @@
     <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-
     <div class="container marketing">
-
-      <!-- Three columns of text below the carousel -->
-      <div class="row">
-        <div class="col-lg-4">
-          <img src="image/upload.jpg" width="120" height="100">
-          <h2>Upload</h2>
-          <p>Be free to upload your new video to MyYoutube and share with others.</p>
-          <p><a class="btn btn-default" href="upload.jsp" role="button">View details &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-          <img src="image/video.jpg" width="100" height="100">
-          <h2>Listing</h2>
-          <p>To explore our latest videos with exciting news and surprises.</p>
-          <p><a class="btn btn-default" href="listing" role="button">View details &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-          <img src="image/rating.jpg" width="120" height="100">
-          <h2>Rating</h2>
-          <p>Help us rate videos you like or dislike to share your ideas.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
-      </div><!-- /.row -->
-
 
       <!-- START THE FEATURETTES -->
 
-      <hr class="featurette-divider">
-
-	  <% if (videoList.size() > 0) { %>
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">Top one. <span class="text-muted"><% out.print(videoList.get(0)); %>.</span></h2>
-        </div>
-        <div class="col-md-5">
-          <script type='text/javascript' src='https://d2mgt2m49d2xua.cloudfront.net/jwplayer.js'></script>
-		  <div id='mediaplayer1'></div>
-		  <script type="text/javascript">
-		  	jwplayer('mediaplayer1').setup({
-				file: "rtmp://s1hjuh8tieb9mz.cloudfront.net/cfx/st/<% out.print(videoList.get(0)); %>",
-				width: "500",
-				height: "400"
-			});
-		  </script>
-        </div>
-      </div>
+	<% for (int i=0; i<videoList.size(); i++) { %>
+	  <% if (i%2 == 0) { %>
+	      <div class="row featurette">
+	        <div class="col-md-7">
+	          <h2 class="featurette-heading"> Top <% out.print(i+1); %> -- <span class="text-muted"><% out.print(videoList.get(i)); %>.</span></h2>
+	        </div>
+	        <div class="col-md-5">
+	          <script type='text/javascript' src='https://d2mgt2m49d2xua.cloudfront.net/jwplayer.js'></script>
+			  <div id='mediaplayer<%out.print(i);%>'></div>
+			  <script type="text/javascript">
+			  	jwplayer('mediaplayer<%out.print(i);%>').setup({
+					file: "rtmp://s1hjuh8tieb9mz.cloudfront.net/cfx/st/<% out.print(videoList.get(i)); %>",
+					width: "500",
+					height: "400"
+				});
+			  </script>
+	        </div>
+	      </div>
+      <% } else { %>
+	      <div class="row featurette">
+	      	<div class="col-md-7">
+	          <script type='text/javascript' src='https://d2mgt2m49d2xua.cloudfront.net/jwplayer.js'></script>
+			  <div id='mediaplayer<%out.print(i);%>'></div>
+			  <script type="text/javascript">
+			  	jwplayer('mediaplayer<%out.print(i);%>').setup({
+					file: "rtmp://s1hjuh8tieb9mz.cloudfront.net/cfx/st/<% out.print(videoList.get(i)); %>",
+					width: "500",
+					height: "400"
+				});
+			  </script>
+	        </div>
+	        <div class="col-md-5">
+	          <h2 class="featurette-heading"> Top <% out.print(i+1); %> -- <span class="text-muted"><% out.print(videoList.get(i)); %>.</span></h2>
+	        </div>
+	      </div>
       <% } %>
-
-      <hr class="featurette-divider">
-
-	  <% if (videoList.size() > 1) { %>
-      <div class="row featurette">
-      	<div class="col-md-7">
-          <script type='text/javascript' src='https://d2mgt2m49d2xua.cloudfront.net/jwplayer.js'></script>
-		  <div id='mediaplayer2'></div>
-		  <script type="text/javascript">
-		  	jwplayer('mediaplayer2').setup({
-				file: "rtmp://s1hjuh8tieb9mz.cloudfront.net/cfx/st/<% out.print(videoList.get(1)); %>",
-				width: "500",
-				height: "400"
-			});
-		  </script>
-        </div>
-        <div class="col-md-5">
-          <h2 class="featurette-heading">Top Two. <span class="text-muted"><% out.print(videoList.get(1)); %>.</span></h2>
-        </div>
-      </div>
-      <% } %>
-
-      <hr class="featurette-divider">
-
-      <% if (videoList.size() > 2) { %>
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">Top Three. <span class="text-muted"><% out.print(videoList.get(2)); %>.</span></h2>
-        </div>
-        <div class="col-md-5">
-          <script type='text/javascript' src='https://d2mgt2m49d2xua.cloudfront.net/jwplayer.js'></script>
-		  <div id='mediaplayer3'></div>
-		  <script type="text/javascript">
-		  	jwplayer('mediaplayer3').setup({
-				file: "rtmp://s1hjuh8tieb9mz.cloudfront.net/cfx/st/<% out.print(videoList.get(2)); %>",
-				width: "500",
-				height: "400"
-			});
-		  </script>
-        </div>
-      </div>
-      <% } %>
+      	<hr class="featurette-divider">
+	<% } %>
+	  
+	  <center>
+	  <p><a class="btn btn-default" href="index.jsp" role="button">Go back &raquo;</a></p>
+	  </center>
 
       <hr class="featurette-divider">
 
@@ -225,8 +185,9 @@
       <!-- FOOTER -->
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; Xiaotong Chen, Xiang Yao. </p>
+        <p>&copy; Xiaotong Chen, Xiang Yao.</p>
       </footer>
+
 
     </div><!-- /.container -->
 
