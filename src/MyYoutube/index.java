@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
  * Servlet implementation class index
  */
@@ -39,7 +40,6 @@ public class index extends HttpServlet {
 		// TODO Auto-generated method stub
         PrintWriter out = response.getWriter();
         out.print("HELLO!!!");
-        
         
         request.getRequestDispatcher("index.jsp");
 	}

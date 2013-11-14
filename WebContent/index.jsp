@@ -1,5 +1,9 @@
 
 <!DOCTYPE html>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -25,6 +29,17 @@
 
     <!-- Custom styles for this template -->
     <link href="css/carousel.css" rel="stylesheet">
+    
+    
+    <%
+   	List<String> videoList = new ArrayList<String>();
+   	if (request.getAttribute("video_list") == null) {
+ 		response.sendRedirect("/MyYoutube/upload");
+ 	} else {
+   		videoList = (ArrayList<String>)request.getAttribute("video_list");
+   	}
+    %>
+    
   </head>
 <!-- NAVBAR
 ================================================== -->
@@ -146,15 +161,25 @@
 
       <hr class="featurette-divider">
 
+	  <% if (videoList.size() > 0) { %>
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">Top one. <span class="text-muted"><% out.print(videoList.get(0)); %>.</span></h2>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="js/holder.js/500x500/auto" alt="Generic placeholder image">
+          <script type='text/javascript' src='https://d2mgt2m49d2xua.cloudfront.net/jwplayer.js'></script>
+		  <div id='mediaplayer'></div>
+		  <script type="text/javascript">
+		  	jwplayer('mediaplayer').setup({
+				file: "rtmp://s1hjuh8tieb9mz.cloudfront.net/cfx/st/<% out.print(videoList.get(0)); %>",
+				width: "600",
+				height: "400"
+			});
+		  </script>
         </div>
       </div>
+      
+      <% } %>
 
       <hr class="featurette-divider">
 

@@ -1,6 +1,7 @@
 package MyYoutube;
 
 import java.io.File;
+import java.util.List;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.PropertiesCredentials;
@@ -31,12 +32,36 @@ import com.amazonaws.services.cloudfront.model.StreamingLoggingConfig;
 import com.amazonaws.services.cloudfront.model.TrustedSigners;
 import com.amazonaws.services.cloudfront.model.ViewerProtocolPolicy;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 
 public class AWSResource {
 	
     static AmazonS3Client s3;
+    
+    public static List<S3ObjectSummary> getVideoList() throws Exception {
+
+    	AmazonS3Client s3Client;
+		AWSCredentials credentials = new PropertiesCredentials(
+   	 			index.class.getResourceAsStream("AwsCredentials.properties"));
+		s3Client = new AmazonS3Client(credentials);
+		
+		ObjectListing objList = s3Client.listObjects("xiangyaoyoutube");
+		List<S3ObjectSummary> keyList = objList.getObjectSummaries();
+		ObjectListing next = s3Client.listNextBatchOfObjects(objList);
+		keyList.addAll(next.getObjectSummaries());
+
+		while (next.isTruncated()) {
+			objList=s3Client.listNextBatchOfObjects(next);
+			keyList.addAll(objList.getObjectSummaries());
+			next =s3Client.listNextBatchOfObjects(objList);
+		}
+		keyList.addAll(next.getObjectSummaries());
+        
+		return keyList;
+	}    
     
     public static void main(String[] args) throws Exception {
 
@@ -48,7 +73,7 @@ public class AWSResource {
 	  	s3  = new AmazonS3Client(credentials);
 	      
 	     /* create bucket */
-	     String bucketName = "codecreatedbucket";
+	     String bucketName = "xiangyaoyoutube";
 	     s3.createBucket(bucketName);
 	      	     
 	     /* set key */
