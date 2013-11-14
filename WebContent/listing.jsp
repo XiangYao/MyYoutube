@@ -17,7 +17,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
-
+    <link href="css/main.css" rel="stylesheet">
+    
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -32,10 +33,12 @@
         
     <%
    	List<String> videoList = new ArrayList<String>();
+   	List<String> dateList = new ArrayList<String>();
    	if (request.getAttribute("video_list") == null) {
  		response.sendRedirect("/MyYoutube/listing");
  	} else {
    		videoList = (ArrayList<String>)request.getAttribute("video_list");
+   		dateList = (ArrayList<String>)request.getAttribute("date_list");
    	}
     %>
     
@@ -55,11 +58,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">MyYoutube</a>
+              <a class="navbar-brand" href="index.jsp">MyYoutube</a>
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="index.jsp">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
@@ -138,7 +141,26 @@
 	  <% if (i%2 == 0) { %>
 	      <div class="row featurette">
 	        <div class="col-md-7">
-	          <h2 class="featurette-heading"> Top <% out.print(i+1); %> -- <span class="text-muted"><% out.print(videoList.get(i)); %>.</span></h2>
+	          <h5 class="featurette-heading"> Top <% out.print(i+1); %> -- <span class="text-muted"><% out.print(videoList.get(i)); %>.</span></h5>
+	       	  
+	       	  <div class="starRate">
+			  <div>Currently rated: 3 stars<b></b></div>
+			  <ul>
+			  <li><a href="#"><span>Give it 5 stars</span></a></li>
+			  <li><a href="#"><span>Give it 4 stars</span></a></li>
+			  <li><a href="#"><span>Give it 3 stars</span><b></b></a></li>
+			  <li><a href="#"><span>Give it 2 stars</span></a></li>
+			  <li><a href="#"><span>Give it 1 star</span></a></li>
+			  </ul>
+			  </div>
+	       	  
+	       	  <form action="delete" method="post" id="delete">
+				  <input type="hidden" name="filename" id="deleteFilename" value=<%out.print(videoList.get(i));%>> 
+			      <input type="submit" value="Delete From S3"> 
+			  </form>
+	       	  
+	       	  <h6 class="featurette-heading"> Upload Time:</h6>
+	       	  <h3><span class="text-muted"><% out.print(dateList.get(i)); %>.</span></h3>
 	        </div>
 	        <div class="col-md-5">
 	          <script type='text/javascript' src='https://d2mgt2m49d2xua.cloudfront.net/jwplayer.js'></script>
@@ -166,7 +188,26 @@
 			  </script>
 	        </div>
 	        <div class="col-md-5">
-	          <h2 class="featurette-heading"> Top <% out.print(i+1); %> -- <span class="text-muted"><% out.print(videoList.get(i)); %>.</span></h2>
+	          <h5 class="featurette-heading"> Top <% out.print(i+1); %> -- <span class="text-muted"><% out.print(videoList.get(i)); %>.</span></h5>
+	       	  
+	       	  <div class="starRate">
+			  <div>Currently rated: 3 stars<b></b></div>
+			  <ul>
+			  <li><a href="#"><span>Give it 5 stars</span></a></li>
+			  <li><a href="#"><span>Give it 4 stars</span></a></li>
+			  <li><a href="#"><span>Give it 3 stars</span><b></b></a></li>
+			  <li><a href="#"><span>Give it 2 stars</span></a></li>
+			  <li><a href="#"><span>Give it 1 star</span></a></li>
+			  </ul>
+			  </div>
+			  
+	       	  <form action="delete" method="post" id="delete">
+				  <input type="hidden" name="filename" id="deleteFilename" value=<%out.print(videoList.get(i));%>> 
+			      <input type="submit" value="Delete From S3"> 
+			  </form>
+			  	       	  
+	       	  <h6 class="featurette-heading"> Upload Time:</h6>
+	       	  <h3><span class="text-muted"><% out.print(dateList.get(i)); %>.</span></h3>
 	        </div>
 	      </div>
       <% } %>

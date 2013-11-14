@@ -68,7 +68,34 @@ public class AWSResource {
 				result.add(fileName);
 		}
 		return result;
-	}    
+	}
+    
+    public static List<String> getVideoTimeStampList() throws Exception {
+    	AmazonS3Client s3Client;
+		AWSCredentials credentials = new PropertiesCredentials(
+   	 			index.class.getResourceAsStream("AwsCredentials.properties"));
+		s3Client = new AmazonS3Client(credentials);
+		
+		ObjectListing objList = s3Client.listObjects("xiangyaoyoutube");
+		List<S3ObjectSummary> keyList = objList.getObjectSummaries();
+		ObjectListing next = s3Client.listNextBatchOfObjects(objList);
+		keyList.addAll(next.getObjectSummaries());
+
+		while (next.isTruncated()) {
+			objList=s3Client.listNextBatchOfObjects(next);
+			keyList.addAll(objList.getObjectSummaries());
+			next =s3Client.listNextBatchOfObjects(objList);
+		}
+		keyList.addAll(next.getObjectSummaries());
+		ArrayList<String> result = new ArrayList<String>();
+		for (int i=0; i<keyList.size(); i++) {
+			String fileName = keyList.get(i).getKey();
+			String subfix = fileName.substring(fileName.length() - 4, fileName.length());				
+			if (subfix.equals(".mp4") || subfix.equals(".flv"))
+				result.add(keyList.get(i).getLastModified().toString());
+		}
+		return result;
+	}
     
     public static void main(String[] args) throws Exception {
 

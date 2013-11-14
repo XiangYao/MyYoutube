@@ -9,6 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
@@ -30,6 +31,38 @@
     <!-- Custom styles for this template -->
     <link href="css/carousel.css" rel="stylesheet">
     
+    
+    <script type="text/javascript">
+    
+    	function validateFilename(filename){
+        	var re = /[a-zA-Z0-9]+\.mp4/;
+        	var re2 = /[a-zA-Z0-9]+\.flv/;
+           	return re.test(filename) || re2.test(filename);
+       	}
+    	
+    	function checkValid(){
+            if ((document.getElementById("filename").value) == "") {
+                alert("Filename can't be empty");
+                return false;
+            }
+            if ((document.getElementById("filedata").value) == "") {
+            	alert("File can't be empty");
+            	return false;
+            }
+            else if(validateFilename(document.getElementById("filename").value)==false){
+                alert("Invalid filename, please upload valid .mp4 or .flv file");
+                return false;                    
+            }
+            else {
+                altert("success");
+            	return true;
+            }
+        }
+
+ 	</script>
+    
+    
+    
   </head>
 <!-- NAVBAR
 ================================================== -->
@@ -46,11 +79,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">MyYoutube</a>
+              <a class="navbar-brand" href="index.jsp">MyYoutube</a>
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="index.jsp">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
@@ -129,12 +162,14 @@
       </center>
       
       
-	  <form action="https://xiangyaoyoutube.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
-	      <input type="hidden" name="key" value="${filename}">
-	      <input type="hidden" name="acl" value="public-read-write"> 
-	      <input type="hidden" name="success_action_redirect" value="upload">
-	      File to upload to S3:
-	      <input name="file" type="file"> 
+	  <form action="https://xiangyaoyoutube.s3.amazonaws.com/" method="post" onsubmit="return checkValid()" enctype="multipart/form-data">
+ 	      Filename to upload to S3: 
+ 	      <br />
+ 	      <input name="key" value="" id="filename"/><br />
+<%-- 	  <input type="hidden" name="key" value="${filename}"> --%> 	  
+		  <input type="hidden" name="acl" value="public-read-write"> 
+	      <input type="hidden" name="success_action_redirect" value="http://localhost:8080/MyYoutube/listing">
+	      <input name="file" type="file" id="filedata"> 
 	      <br> 
 	      <input type="submit" value="Upload File to S3"> 
 	  </form>

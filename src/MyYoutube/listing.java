@@ -18,21 +18,16 @@ public class listing extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ArrayList<String> result = new ArrayList<String>();
-
+		List<String> nameList = new ArrayList<String>();
+		List<String> dateList = new ArrayList<String>();
 		try {
-			List<String> videoList = AWSResource.getVideoList();
-			for (int i=0; i<videoList.size(); i++) {
-				String fileName = videoList.get(i);
-				String subfix = fileName.substring(fileName.length() - 4, fileName.length());				
-				if (subfix.equals(".mp4") || subfix.equals(".flv")) {
-					result.add(fileName);
-				}
-			}
+			 nameList = AWSResource.getVideoList();
+			 dateList  = AWSResource.getVideoTimeStampList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("video_list", result);
+		request.setAttribute("video_list", nameList);
+		request.setAttribute("date_list", dateList);
 		request.getRequestDispatcher("listing.jsp").forward(request, response);
 	}
 
