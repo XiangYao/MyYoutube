@@ -168,42 +168,59 @@
         </div>
         <div class="col-md-5">
           <script type='text/javascript' src='https://d2mgt2m49d2xua.cloudfront.net/jwplayer.js'></script>
-		  <div id='mediaplayer'></div>
+		  <div id='mediaplayer1'></div>
 		  <script type="text/javascript">
-		  	jwplayer('mediaplayer').setup({
+		  	jwplayer('mediaplayer1').setup({
 				file: "rtmp://s1hjuh8tieb9mz.cloudfront.net/cfx/st/<% out.print(videoList.get(0)); %>",
-				width: "600",
+				width: "500",
 				height: "400"
 			});
 		  </script>
         </div>
       </div>
-      
       <% } %>
 
       <hr class="featurette-divider">
 
+	  <% if (videoList.size() > 1) { %>
       <div class="row featurette">
-        <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="js/holder.js/500x500/auto" alt="Generic placeholder image">
+      	<div class="col-md-7">
+          <script type='text/javascript' src='https://d2mgt2m49d2xua.cloudfront.net/jwplayer.js'></script>
+		  <div id='mediaplayer2'></div>
+		  <script type="text/javascript">
+		  	jwplayer('mediaplayer2').setup({
+				file: "rtmp://s1hjuh8tieb9mz.cloudfront.net/cfx/st/<% out.print(videoList.get(1)); %>",
+				width: "500",
+				height: "400"
+			});
+		  </script>
         </div>
-        <div class="col-md-7">
-          <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <div class="col-md-5">
+          <h2 class="featurette-heading">Top Two. <span class="text-muted"><% out.print(videoList.get(1)); %>.</span></h2>
         </div>
       </div>
+      <% } %>
 
       <hr class="featurette-divider">
 
+      <% if (videoList.size() > 2) { %>
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">Top Three. <span class="text-muted"><% out.print(videoList.get(2)); %>.</span></h2>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="js/holder.js/500x500/auto" alt="Generic placeholder image">
+          <script type='text/javascript' src='https://d2mgt2m49d2xua.cloudfront.net/jwplayer.js'></script>
+		  <div id='mediaplayer3'></div>
+		  <script type="text/javascript">
+		  	jwplayer('mediaplayer3').setup({
+				file: "rtmp://s1hjuh8tieb9mz.cloudfront.net/cfx/st/<% out.print(videoList.get(2)); %>",
+				width: "500",
+				height: "400"
+			});
+		  </script>
         </div>
       </div>
+      <% } %>
 
       <hr class="featurette-divider">
 
@@ -213,7 +230,7 @@
       <!-- FOOTER -->
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; Xiaotong Chen, Xiang Yao. &middot;</p>
+        <p>&copy; Xiaotong Chen, Xiang Yao. ;</p>
       </footer>
 
     </div><!-- /.container -->
