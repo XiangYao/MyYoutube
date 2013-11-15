@@ -157,21 +157,30 @@
     <div class="container marketing">
 
       <!-- START THE FEATURETTES -->
-	  <center>      
-      <img src="image/loading.gif" width="250" height="200" align="middle">
-      </center>
-      
-	  <form action="https://xiangyaoyoutube.s3.amazonaws.com/" method="post" onsubmit="return checkValid()" enctype="multipart/form-data">
- 	      Filename to upload to S3: 
- 	      <br />
- 	      <input name="key" value="" id="filename"/><br />
-<%-- 	  <input type="hidden" name="key" value="${filename}"> --%> 	  
-		  <input type="hidden" name="acl" value="public-read-write"> 
-	      <input type="hidden" name="success_action_redirect" value="http://ec2-54-205-233-246.compute-1.amazonaws.com:8080/MyYoutube/listing">
-	      <input name="file" type="file" id="filedata"> 
-	      <br> 
-	      <input type="submit" value="Upload File to S3"> 
-	  </form>
+
+		<script src="http://se.embed.scaleengine.net/6.3/jwplayer.js"></script>
+		<script>jwplayer.key="4cFrCsBdTSWp87XH5zQW4VsWi+mFFzQIIqiC4kpnEoU="</script>
+		<center>
+		<div id="se_adaptive_player"></div>		
+		</center>
+		
+		<script type="text/javascript">
+		jwplayer('se_adaptive_player').setup({
+		  'autostart': false,
+		  sources: [
+		    { 'file': "http://se.embed.scaleengine.net/techsnap.smil"},
+		    { 'file': "http://steftest.videocdn.scaleengine.net/steftest-channel/play/techsnap.smil/playlist.m3u8"}
+		  ], 
+		  rtmp: {	
+		    'bufferlength': 5
+		  },
+		  'width': "800",
+		  'height': "450",
+		  'primary': "flash",
+		  'stretching': 'exactfit'
+		});
+		</script>
+
 
       <hr class="featurette-divider">	  
 	  <center>

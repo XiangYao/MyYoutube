@@ -149,6 +149,16 @@
           <p>Help us rate videos you like or dislike to share your ideas.</p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+        </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+          <img src="image/live.jpg" width="120" height="100">
+          <h2>Live</h2>
+          <p>Enjoy our latest live streaming and share it with your friends.</p>
+          <p><a class="btn btn-default" href="livestream.jsp" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+        </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
 
