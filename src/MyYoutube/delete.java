@@ -25,8 +25,15 @@ public class delete extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-		String deleteFilename = request.getParameter("deleteFilename");
+		String deleteFilename = request.getParameter("filename");
 		out.println(deleteFilename);
+		try {
+			AWSResource.deleteObjectS3(deleteFilename);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher("listing.jsp").forward(request, response);
 	}
 
 }

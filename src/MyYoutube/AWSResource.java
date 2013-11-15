@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.PropertiesCredentials;
 import com.amazonaws.auth.policy.Policy;
@@ -96,6 +98,14 @@ public class AWSResource {
 		}
 		return result;
 	}
+    
+    public static void deleteObjectS3(String filename) throws Exception {
+    	AmazonS3Client s3Client;
+		AWSCredentials credentials = new PropertiesCredentials(
+   	 			index.class.getResourceAsStream("AwsCredentials.properties"));
+		s3Client = new AmazonS3Client(credentials);
+		s3Client.deleteObject("xiangyaoyoutube", filename);
+    }
     
     public static void main(String[] args) throws Exception {
 
