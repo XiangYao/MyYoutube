@@ -7,8 +7,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,23 +14,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.amazonaws.services.s3.model.S3ObjectSummary;
-
-@WebServlet(name = "upload", urlPatterns = {"/upload"})
-public class upload extends HttpServlet {
+/**
+ * Servlet implementation class rating
+ */
+@WebServlet("/rating")
+public class rating extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        String name = request.getParameter("key");
-        java.util.Date date= new java.util.Date();
+        out.println("rating");
         
-        out.println("name: " + name);
+        String name = request.getParameter("name");
+        int rating = Integer.parseInt(request.getParameter("rating"));
+        out.println(name);
+        out.print(rating);
         
     	Connection conn = null;
     	PreparedStatement preparedStatement = null;
-	    String sql = "INSERT INTO video"
-				+ " (uploadtime, name) VALUES"
+	    String sql = "INSERT INTO rate"
+				+ " (score, name) VALUES"
 				+ " (?,?)";
 		try {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
@@ -46,7 +47,7 @@ public class upload extends HttpServlet {
 	        String url = "jdbc:mysql://myyoutubedb.c7hsbutjtwog.us-east-1.rds.amazonaws.com:3306/myyoutubedb";
 	        conn = DriverManager.getConnection(url, id, pwd);
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setTimestamp(1, new Timestamp(date.getTime()));
+			preparedStatement.setInt(1, rating);
 			preparedStatement.setString(2, name);			
 	    	preparedStatement.executeUpdate();
 	    	System.out.println("Success");    
@@ -55,10 +56,12 @@ public class upload extends HttpServlet {
 	    	System.out.println("SQLState: " + ex.getSQLState());
 	    	System.out.println("VendorError: " + ex.getErrorCode());
 	    }
+	    
 	    request.getRequestDispatcher("listing.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 	}
 
 }

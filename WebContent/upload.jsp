@@ -167,7 +167,7 @@
  	      <input name="key" value="" id="filename"/><br />
 <%-- 	  <input type="hidden" name="key" value="${filename}"> --%> 	  
 		  <input type="hidden" name="acl" value="public-read-write"> 
-	      <input type="hidden" name="success_action_redirect" value="http://ec2-54-205-233-246.compute-1.amazonaws.com:8080/MyYoutube/listing">
+	      <input type="hidden" name="success_action_redirect" value="http://localhost:8080/MyYoutube/upload?name='${key}'">
 	      <input name="file" type="file" id="filedata"> 
 	      <br> 
 	      <input type="submit" value="Upload File to S3"> 

@@ -146,11 +146,11 @@
 	       	  <div class="starRate">
 			  <div>Currently rated: 3 stars<b></b></div>
 			  <ul>
-			  <li><a href="#"><span>Give it 5 stars</span></a></li>
-			  <li><a href="#"><span>Give it 4 stars</span></a></li>
-			  <li><a href="#"><span>Give it 3 stars</span><b></b></a></li>
-			  <li><a href="#"><span>Give it 2 stars</span></a></li>
-			  <li><a href="#"><span>Give it 1 star</span></a></li>
+			  <li><a href="rating?name=<%=videoList.get(i)%>&rating=5"><span>Give it 5 stars</span></a></li>
+			  <li><a href="rating?name=<%=videoList.get(i)%>&rating=4"><span>Give it 4 stars</span></a></li>
+			  <li><a href="rating?name=<%=videoList.get(i)%>&rating=3"><span>Give it 3 stars</span><b></b></a></li>
+			  <li><a href="rating?name=<%=videoList.get(i)%>&rating=2"><span>Give it 2 stars</span></a></li>
+			  <li><a href="rating?name=<%=videoList.get(i)%>&rating=1"><span>Give it 1 star</span></a></li>
 			  </ul>
 			  </div>
 	       	  
@@ -193,11 +193,11 @@
 	       	  <div class="starRate">
 			  <div>Currently rated: 3 stars<b></b></div>
 			  <ul>
-			  <li><a href="#"><span>Give it 5 stars</span></a></li>
-			  <li><a href="#"><span>Give it 4 stars</span></a></li>
-			  <li><a href="#"><span>Give it 3 stars</span><b></b></a></li>
-			  <li><a href="#"><span>Give it 2 stars</span></a></li>
-			  <li><a href="#"><span>Give it 1 star</span></a></li>
+			  <li><a href="rating?name=<%=videoList.get(i)%>&rating=5"><span>Give it 5 stars</span></a></li>
+			  <li><a href="rating?name=<%=videoList.get(i)%>&rating=4"><span>Give it 4 stars</span></a></li>
+			  <li><a href="rating?name=<%=videoList.get(i)%>&rating=3"><span>Give it 3 stars</span><b></b></a></li>
+			  <li><a href="rating?name=<%=videoList.get(i)%>&rating=2"><span>Give it 2 stars</span></a></li>
+			  <li><a href="rating?name=<%=videoList.get(i)%>&rating=1"><span>Give it 1 star</span></a></li>
 			  </ul>
 			  </div>
 			  
